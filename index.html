@@ -1,87 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oquedades Maqueta</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oquedades Maqueta</title>
 
-<script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.2/dist/aframe-extras.min.js"></script>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.2/dist/aframe-extras.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
 
 <style>
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-/* Zonas visibles para los joysticks */
-#joyLeft,
-#joyRight {
-    position: fixed;
+  /* Zona joystick*/
+  #joyLeft, #joyRight {
+    position: absolute;
     bottom: 20px;
     width: 160px;
     height: 160px;
-    z-index: 9999;
+    touch-action: none;
     display: block;
-    border-radius: 50%;
-    border: 3px solid rgba(255,255,255,0.7);
-    background: rgba(255,255,255,0.15);
-}
+    z-index: 9999;
+  }
 
-#joyLeft {
-    left: 20px;
-}
+  #joyLeft { left: 20px; }
+  #joyRight { right: 20px; }
 
-#joyRight {
-    right: 20px;
-}
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
 </style>
-</head>
-
+	
 <body>
 
-<div id="joyLeft"></div>
-<div id="joyRight"></div>
-
-<a-scene loading-screen="dotsColor: white; backgroundColor: white">
-
-    <a-assets>
+    <a-scene loading-screen="dotsColor: white; backgroundColor: white">
+      
+      <!-- Assets: modelos GLB separados -->
+      <a-assets>
         <a-asset-item id="bodega" src="models/bodega.glb"></a-asset-item>
         <a-asset-item id="piezas" src="models/piezas.glb"></a-asset-item>
         <a-asset-item id="utileria" src="models/utileria.glb"></a-asset-item>
+
         <a-asset-item id="floorMesh" src="models/navmesh.glb"></a-asset-item>
-    </a-assets>
+      </a-assets>
+      
+      <a-entity gltf-model="#floorMesh" nav-mesh visible="false"></a-entity>
 
-    <a-entity
-        gltf-model="#floorMesh"
-        nav-mesh
-        visible="false">
-    </a-entity>
+      <!-- Modelos GLB cargados -->
+      <a-entity gltf-model="#bodega"></a-entity>
+      <a-entity gltf-model="#piezas"></a-entity>
+      <a-entity gltf-model="#utileria"></a-entity>
 
-    <a-entity gltf-model="#bodega"></a-entity>
-    <a-entity gltf-model="#piezas"></a-entity>
-    <a-entity gltf-model="#utileria"></a-entity>
-
-    <a-entity
-        id="rig"
-        movement-controls="
-            constrainToNavMesh: true;
-            controls: keyboard;
-            speed: 0.06;
-            acceleration: 20;"
+      <!-- Cámara y controles -->
+      <a-entity id="rig"
+        movement-controls="constrainToNavMesh: true;
+                           controls: keyboard, nipple;
+                           speed: 0.06;
+                           acceleration: 20;"
         position="0 0 0">
+        <a-entity camera position="0 2 0" look-controls></a-entity>
+      </a-entity>
 
-        <a-entity
-            camera
-            position="0 2 0"
-            look-controls>
-        </a-entity>
-
-    </a-entity>
-
-</a-scene>
-
+    </a-scene>
+	
 </body>
 </html>
