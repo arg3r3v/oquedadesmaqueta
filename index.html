@@ -10,6 +10,28 @@
     
     <link rel="stylesheet" href="style.css">
 </head>
+
+<style>
+  /* Zona joystick*/
+  #joyLeft, #joyRight {
+    position: absolute;
+    bottom: 20px;
+    width: 160px;
+    height: 160px;
+    touch-action: none;
+    display: none;
+    z-index: 9999;
+  }
+
+  #joyLeft { left: 20px; }
+  #joyRight { right: 20px; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+</style>
+	
 <body>
 
     <a-scene loading-screen="dotsColor: white; backgroundColor: white">
